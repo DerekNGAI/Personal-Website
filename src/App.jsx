@@ -1,69 +1,55 @@
-import { useState, useEffect } from "react";
 import downArrow from "./assets/downArrow.png";
 
 function App() {
-  const [scrollY, setScrollY] = useState(0);
-
-  const handleScroll = () => {
-    setScrollY(window.scrollY);
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   return (
     <div className="h-screen w-screen snap-y snap-mandatory overflow-y-scroll bg-black">
-      <section className="flex h-screen snap-start flex-col items-center justify-center">
-        <div className="flex h-2/3 flex-col items-center justify-center text-[15vw] text-white">
-          Welcome
+      <div className="absolute flex h-1/12 w-full items-center text-white">
+        <div className="flex w-1/2 items-center justify-center text-[4vw]">
+          ❚█══Derek NGAI══█❚
         </div>
-        <img
-          className="w-[10%] animate-pulse brightness-0 invert filter"
-          src={downArrow}
-          alt=""
-        />
-      </section>
 
-      <section className="flex h-screen snap-start items-center justify-center text-6xl text-white">
-        Name
-      </section>
+        <div className="flex h-full w-1/2 items-center justify-between py-2">
+          <button className="flex h-full w-1/4 items-center justify-center rounded-md text-[2vw] transition hover:bg-blue-300">
+            About
+          </button>
+          <button className="flex h-full w-1/4 items-center justify-center rounded-md text-[2vw] transition hover:bg-blue-300">
+            Project
+          </button>
+          <button className="flex h-full w-1/4 items-center justify-center rounded-md text-[2vw] transition hover:bg-blue-300">
+            Resume
+          </button>
+          <button className="flex h-full w-1/4 items-center justify-center rounded-md text-[2vw] transition hover:bg-blue-300">
+            Contact
+          </button>
+        </div>
+      </div>
 
-      <section className="flex h-screen snap-start items-center justify-center text-6xl text-white">
-        Center of Roads
-      </section>
+      <div>
+        <section className="flex h-screen snap-start flex-col items-center justify-center">
+          <div className="flex h-2/3 flex-col items-center justify-center text-[15vw] text-white">
+            Welcome
+          </div>
+          <img
+            className="w-[10%] animate-pulse brightness-0 invert filter"
+            src={downArrow}
+            alt=""
+          />
+        </section>
+
+        <section className="flex h-screen snap-start flex-col items-start justify-center text-white">
+          <h1 className="text-[15vw]">Derek NGAI</h1>
+          <p>
+            I’m Derek Ngai, a front-end developer graduating in August 2025.
+            Passionate about building responsive, user-focused web experiences,
+            I’m excited to collaborate and create innovative solutions.
+          </p>
+        </section>
+
+        <section className="flex h-screen snap-start items-center justify-center text-6xl text-white">
+          Center of Roads
+        </section>
+      </div>
     </div>
-
-    // <div className='bg-black min-h-screen min-w-screen text-white'>
-    //   {/* This div will change opacity based on scroll */}
-    //   <div
-    //     className="h-screen flex justify-center items-center text-4xl"
-    //     style={{ opacity: Math.max(0, 1 - scrollY / 500) }}
-    //   >
-    //     Scroll down to see changes!
-    //   </div>
-
-    //   {/* This div will appear after scrolling down */}
-    //   <div
-    //     className={`h-screen flex justify-center items-center text-4xl transition-colors duration-500 ease-in-out ${
-    //       scrollY > 500 ? 'bg-blue-900' : 'bg-transparent'
-    //     }`}
-    //   >
-    //     {scrollY > 500 ? (
-    //       <p>You've scrolled past 500px!</p>
-    //     ) : (
-    //       <p>Keep scrolling...</p>
-    //     )}
-    //   </div>
-
-    //   {/* This div ensures there's enough scrollable content */}
-    //   <div className='h-screen flex justify-center items-center text-4xl'>
-    //     <p>More content below!</p>
-    //   </div>
-    // </div>
   );
 }
 
