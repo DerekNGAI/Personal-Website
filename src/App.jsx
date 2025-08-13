@@ -1,28 +1,39 @@
-import downArrow from "./assets/downArrow.png";
-
 function App() {
   const DownArrowComp = ({ className }) => {
     return (
-      <img
-        className={`w-[10%] animate-pulse brightness-0 invert filter ${className}`}
-        src={downArrow}
-        alt="Down Arrow"
-      />
+      <svg
+        className={`h-10 w-10 animate-pulse text-white ${className}`}
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
+        <path d="M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 16.0002L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z"></path>
+      </svg>
     );
   };
 
-  const HeaderButton = ({ children }) => (
+  const HeaderButton = ({ children, targetId }) => (
     <button
       type="button"
       className="flex h-full w-1/4 items-center justify-center rounded-md text-[1.5vh] transition
         hover:bg-blue-300"
+      onClick={() => {
+        // Use standard JavaScript to smoothly scroll to the element with the matching ID
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }}
     >
       {children}
     </button>
   );
 
   const FooterButton = ({ img }) => (
-    <button
+    <a
+      href="https://github.com/DerekNGAI"
+      target="_blank"
+      rel="noopener noreferrer"
       className={`group relative cursor-pointer overflow-hidden rounded-full border border-white/10
         bg-gradient-to-tr from-black/60 to-black/40 p-5 shadow-lg backdrop-blur-lg transition-all
         duration-300 ease-out hover:scale-110 hover:rotate-3 hover:border-white/30
@@ -34,39 +45,46 @@ function App() {
           to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full"
       ></div>
       <div className="relative z-10">{img}</div>
-    </button>
+    </a>
   );
 
-  const CustomSection = ({ children, className }) => (
-    <section className={`h-full w-full snap-start pt-10 ${className}`}>{children}</section>
+  const CustomSection = ({ children, className, id }) => (
+    <section id={id} className={`h-full w-full snap-start pt-10 ${className}`}>
+      {children}
+    </section>
   );
 
   return (
     <>
-      <div className="absolute flex h-1/12 w-full items-center text-white">
+      {/* Fixed header for navigation */}
+      <div
+        className="fixed top-0 left-0 z-50 flex h-1/12 w-full items-center bg-black/50 px-[5%]
+          text-white backdrop-blur-lg"
+      >
         <div className="flex w-1/2 items-center justify-center text-[2vh]">❚█══Derek NGAI══█❚</div>
 
         <div className="flex h-full w-1/2 items-center justify-between py-2">
-          <HeaderButton children={"About"} />
-          <HeaderButton children={"Project"} />
-          <HeaderButton children={"Resume"} />
-          <HeaderButton children={"Contact"} />
+          {/* HeaderButtons now link to specific section IDs */}
+          <HeaderButton targetId={"about-section"}>About</HeaderButton>
+          <HeaderButton targetId={"projects-section"}>Project</HeaderButton>
+          <HeaderButton targetId={"resume-section"}>Resume</HeaderButton>
+          <HeaderButton targetId={"contact-section"}>Contact</HeaderButton>
         </div>
       </div>
 
+      {/* Main scroll container */}
       <div className="h-screen w-screen snap-y snap-mandatory overflow-y-scroll bg-black px-[10%]">
         <div className="h-full w-full">
-          {/* <section className="flex h-screen snap-start flex-col items-center justify-center"> */}
-          <CustomSection className="flex flex-col items-center justify-center">
+          {/* Hero Section */}
+          <CustomSection id={"hero-section"} className="flex flex-col items-center justify-center">
             <div className="flex h-2/3 flex-col items-center justify-center text-[12vw] text-white">
               Hej! Welcome!
             </div>
             <DownArrowComp />
           </CustomSection>
-          {/* </section> */}
 
-          {/* <section className="flex h-screen snap-start flex-col justify-center"> */}
-          <CustomSection className={"flex flex-col justify-center"}>
+          {/* About Section */}
+          <CustomSection id={"about-section"} className={"flex flex-col justify-center"}>
             <div className="flex h-2/3 w-2/3 flex-col items-start justify-center text-white">
               <h1 className="text-[10vw]">Who am I?</h1>
               <p className="text-[3vw]">
@@ -81,9 +99,13 @@ function App() {
             </div>
           </CustomSection>
 
-          <CustomSection className="flex snap-start flex-col items-center justify-center pb-[10%]">
+          {/* Contact Section */}
+          <CustomSection
+            id={"contact-section"}
+            className="flex snap-start flex-col items-center justify-center pb-[10%]"
+          >
             <div className="flex h-3/4 flex-col items-center justify-center gap-[5vh] text-white">
-              <p className="text-[6vh]">Looking for Front-end Developer?</p>
+              <p className="text-[6vh]">Looking for a Front-end Developer?</p>
               <button
                 className="group relative w-1/2 overflow-hidden rounded-md border border-b-4
                   border-red-400 bg-red-950 px-4 py-2 font-medium text-red-400 duration-300
@@ -95,7 +117,9 @@ function App() {
                     bg-red-400 opacity-50 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)] shadow-red-400
                     duration-500 group-hover:top-[150%]"
                 />
-                <p className="text-[4vh]">GET IN TOUCH</p>
+                <a href="mailto:derekngai.dnw@gmail.com" className="text-[4vh]">
+                  GET IN TOUCH
+                </a>
               </button>
             </div>
 
