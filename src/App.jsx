@@ -12,7 +12,17 @@ function App() {
     );
   };
 
-  const HeaderButton = ({ children, targetId }) => (
+  const HeaderMainButton = ({ children }) => (
+    <button
+      class="cursor-pointer rounded-lg border-b-[4px] border-gray-600 bg-gray-500 px-6 py-2
+        text-white transition-all hover:-translate-y-[1px] hover:border-b-[6px] hover:brightness-110
+        active:translate-y-[2px] active:border-b-[2px] active:brightness-90"
+    >
+      {children}
+    </button>
+  );
+
+  const HeaderNavigationButton = ({ children, targetId }) => (
     <button
       type="button"
       className="flex h-full w-1/4 items-center justify-center rounded-md text-[1.5vh] transition
@@ -29,9 +39,10 @@ function App() {
     </button>
   );
 
-  const FooterButton = ({ img }) => (
+  const FooterButton = ({ img, path }) => (
     <a
-      href="https://github.com/DerekNGAI"
+      href={path}
+      download="NGAIDikHong_Resume.pdf"
       target="_blank"
       rel="noopener noreferrer"
       className={`group relative cursor-pointer overflow-hidden rounded-full border border-white/10
@@ -61,19 +72,24 @@ function App() {
         className="fixed top-0 left-0 z-50 flex h-1/12 w-full items-center bg-black/50 px-[5%]
           text-white backdrop-blur-lg"
       >
-        <div className="flex w-1/2 items-center justify-center text-[2vh]">❚█══Derek NGAI══█❚</div>
+        <div className="flex w-1/2 items-center justify-center text-[0.7rem]">
+          <HeaderMainButton>❚█══Derek NGAI══█❚</HeaderMainButton>
+        </div>
 
         <div className="flex h-full w-1/2 items-center justify-between py-2">
-          {/* HeaderButtons now link to specific section IDs */}
-          <HeaderButton targetId={"about-section"}>About</HeaderButton>
-          <HeaderButton targetId={"projects-section"}>Project</HeaderButton>
-          <HeaderButton targetId={"resume-section"}>Resume</HeaderButton>
-          <HeaderButton targetId={"contact-section"}>Contact</HeaderButton>
+          {/* HeaderNavigationButtons now link to specific section IDs */}
+          <HeaderNavigationButton targetId={"about-section"}>About</HeaderNavigationButton>
+          <HeaderNavigationButton targetId={"projects-section"}>Project</HeaderNavigationButton>
+          <HeaderNavigationButton targetId={"resume-section"}>Resume</HeaderNavigationButton>
+          <HeaderNavigationButton targetId={"contact-section"}>Contact</HeaderNavigationButton>
         </div>
       </div>
 
       {/* Main scroll container */}
-      <div className="h-screen w-screen snap-y snap-mandatory overflow-y-scroll bg-black px-[10%]">
+      <div
+        className="h-screen w-screen snap-y snap-mandatory overflow-y-scroll bg-gradient-to-br
+          from-[#121212] to-[#242424] px-[10%]"
+      >
         <div className="h-full w-full">
           {/* Hero Section */}
           <CustomSection id={"hero-section"} className="flex flex-col items-center justify-center">
@@ -86,8 +102,8 @@ function App() {
           {/* About Section */}
           <CustomSection id={"about-section"} className={"flex flex-col justify-center"}>
             <div className="flex h-2/3 w-2/3 flex-col items-start justify-center text-white">
-              <h1 className="text-[10vw]">Who am I?</h1>
-              <p className="text-[3vw]">
+              <h1 className="text-[8vw]">Who am I?</h1>
+              <p className="text-[2vw]">
                 I’m Derek Ngai, a front-end developer graduating in August 2025. Passionate about
                 building responsive, user-focused web experiences, I’m excited to collaborate and
                 create innovative solutions.
@@ -107,9 +123,9 @@ function App() {
             <div className="flex h-3/4 flex-col items-center justify-center gap-[5vh] text-white">
               <p className="text-[6vh]">Looking for a Front-end Developer?</p>
               <button
-                className="group relative w-1/2 overflow-hidden rounded-md border border-b-4
-                  border-red-400 bg-red-950 px-4 py-2 font-medium text-red-400 duration-300
-                  outline-none hover:border-t-4 hover:border-b hover:brightness-150
+                className="group relative w-1/2 cursor-pointer overflow-hidden rounded-md border
+                  border-b-4 border-red-400 bg-red-950 px-4 py-2 font-medium text-red-400
+                  duration-300 outline-none hover:border-t-4 hover:border-b hover:brightness-150
                   active:opacity-75"
               >
                 <span
@@ -126,6 +142,7 @@ function App() {
             <div className="flex h-1/4 w-full flex-col items-start justify-between">
               <div className="flex gap-[2vh]">
                 <FooterButton
+                  path={"../public/Resume.pdf"}
                   img={
                     <svg
                       width="50px"
@@ -145,6 +162,7 @@ function App() {
                   }
                 />
                 <FooterButton
+                  path={"https://github.com/DerekNGAI"}
                   img={
                     <svg
                       width="50px"
@@ -175,6 +193,7 @@ function App() {
                   }
                 />
                 <FooterButton
+                  path={"https://www.linkedin.com/in/derek-ngai-5a5b982b8/"}
                   img={
                     <svg
                       height="50px"
