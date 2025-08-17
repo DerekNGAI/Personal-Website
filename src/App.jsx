@@ -17,6 +17,12 @@ function App() {
       class="cursor-pointer rounded-lg border-b-[4px] border-gray-600 bg-gray-500 px-6 py-2
         text-white transition-all hover:-translate-y-[1px] hover:border-b-[6px] hover:brightness-110
         active:translate-y-[2px] active:border-b-[2px] active:brightness-90"
+      onClick={() => {
+        const targetElement = document.getElementById("hero-section");
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }}
     >
       {children}
     </button>
@@ -25,7 +31,7 @@ function App() {
   const HeaderNavigationButton = ({ children, targetId }) => (
     <button
       type="button"
-      className="flex h-full w-1/4 items-center justify-center rounded-md text-[1.5vh] transition
+      className="flex h-full w-1/4 items-center justify-center rounded-md text-sm transition
         hover:bg-blue-300"
       onClick={() => {
         // Use standard JavaScript to smoothly scroll to the element with the matching ID
@@ -60,7 +66,7 @@ function App() {
   );
 
   const CustomSection = ({ children, className, id }) => (
-    <section id={id} className={`h-full w-full snap-start pt-10 ${className}`}>
+    <section id={id} className={`h-full w-full snap-start ${className}`}>
       {children}
     </section>
   );
@@ -72,15 +78,13 @@ function App() {
         className="fixed top-0 left-0 z-50 flex h-1/12 w-full items-center bg-black/50 px-[5%]
           text-white backdrop-blur-lg"
       >
-        <div className="flex w-1/2 items-center justify-center text-[0.7rem]">
+        <div className="flex w-1/2 items-center justify-center text-xs">
           <HeaderMainButton>❚█══Derek NGAI══█❚</HeaderMainButton>
         </div>
 
         <div className="flex h-full w-1/2 items-center justify-between py-2">
-          {/* HeaderNavigationButtons now link to specific section IDs */}
           <HeaderNavigationButton targetId={"about-section"}>About</HeaderNavigationButton>
-          <HeaderNavigationButton targetId={"projects-section"}>Project</HeaderNavigationButton>
-          <HeaderNavigationButton targetId={"resume-section"}>Resume</HeaderNavigationButton>
+          <HeaderNavigationButton targetId={"project-section"}>Project</HeaderNavigationButton>
           <HeaderNavigationButton targetId={"contact-section"}>Contact</HeaderNavigationButton>
         </div>
       </div>
@@ -93,7 +97,7 @@ function App() {
         <div className="h-full w-full">
           {/* Hero Section */}
           <CustomSection id={"hero-section"} className="flex flex-col items-center justify-center">
-            <div className="flex h-2/3 flex-col items-center justify-center text-[12vw] text-white">
+            <div className="flex h-2/3 flex-col items-center justify-center text-8xl text-white">
               Hej! Welcome!
             </div>
             <DownArrowComp />
@@ -102,8 +106,8 @@ function App() {
           {/* About Section */}
           <CustomSection id={"about-section"} className={"flex flex-col justify-center"}>
             <div className="flex h-2/3 w-2/3 flex-col items-start justify-center text-white">
-              <h1 className="text-[8vw]">Who am I?</h1>
-              <p className="text-[2vw]">
+              <h1 className="text-6xl">Who am I?</h1>
+              <p className="text-base">
                 I’m Derek Ngai, a front-end developer graduating in August 2025. Passionate about
                 building responsive, user-focused web experiences, I’m excited to collaborate and
                 create innovative solutions.
@@ -115,32 +119,37 @@ function App() {
             </div>
           </CustomSection>
 
+          {/* Project Section */}
+          <CustomSection id={"project-section"}></CustomSection>
+
           {/* Contact Section */}
           <CustomSection
             id={"contact-section"}
             className="flex snap-start flex-col items-center justify-center pb-[10%]"
           >
-            <div className="flex h-3/4 flex-col items-center justify-center gap-[5vh] text-white">
-              <p className="text-[6vh]">Looking for a Front-end Developer?</p>
-              <button
-                className="group relative w-1/2 cursor-pointer overflow-hidden rounded-md border
-                  border-b-4 border-red-400 bg-red-950 px-4 py-2 font-medium text-red-400
-                  duration-300 outline-none hover:border-t-4 hover:border-b hover:brightness-150
-                  active:opacity-75"
-              >
-                <span
-                  className="absolute -top-[150%] left-0 inline-flex h-[5px] w-80 rounded-md
-                    bg-red-400 opacity-50 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)] shadow-red-400
-                    duration-500 group-hover:top-[150%]"
-                />
-                <a href="mailto:derekngai.dnw@gmail.com" className="text-[4vh]">
-                  GET IN TOUCH
-                </a>
-              </button>
+            <div className="flex h-3/4 flex-col items-center justify-center">
+              <div className="flex h-1/2 flex-col items-center justify-around">
+                <p className="text-4xl text-white">Looking for a Front-end Developer?</p>
+                <button
+                  className="group relative w-1/2 cursor-pointer overflow-hidden rounded-md border
+                    border-b-4 border-red-400 bg-red-950 px-4 py-2 font-medium text-red-400
+                    duration-300 outline-none hover:border-t-4 hover:border-b hover:brightness-150
+                    active:opacity-75"
+                >
+                  <span
+                    className="absolute -top-[150%] left-0 inline-flex h-[5px] w-80 rounded-md
+                      bg-red-400 opacity-50 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)] shadow-red-400
+                      duration-500 group-hover:top-[150%]"
+                  />
+                  <a href="mailto:derekngai.dnw@gmail.com" className="text-base">
+                    GET IN TOUCH
+                  </a>
+                </button>
+              </div>
             </div>
 
             <div className="flex h-1/4 w-full flex-col items-start justify-between">
-              <div className="flex gap-[2vh]">
+              <div className="flex gap-5">
                 <FooterButton
                   path={"../public/Resume.pdf"}
                   img={
@@ -222,7 +231,7 @@ function App() {
                 />
               </div>
 
-              <p className="text-[2vh] text-white">© 2025 Derek NGAI</p>
+              <p className="text-base text-white">© 2025 Derek NGAI</p>
             </div>
           </CustomSection>
         </div>
