@@ -1,3 +1,5 @@
+// import { useState } from "react";
+
 function App() {
   const DownArrowComp = ({ className }) => {
     return (
@@ -14,7 +16,7 @@ function App() {
 
   const HeaderMainButton = ({ children }) => (
     <button
-      class="cursor-pointer rounded-lg border-b-[4px] border-gray-600 bg-gray-500 px-6 py-2
+      className="cursor-pointer rounded-lg border-b-[4px] border-gray-600 bg-gray-500 px-6 py-2
         text-white transition-all hover:-translate-y-[1px] hover:border-b-[6px] hover:brightness-110
         active:translate-y-[2px] active:border-b-[2px] active:brightness-90"
       onClick={() => {
@@ -60,16 +62,46 @@ function App() {
       <div
         className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10
           to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full"
-      ></div>
+      />
       <div className="relative z-10">{img}</div>
     </a>
   );
 
   const CustomSection = ({ children, className, id }) => (
-    <section id={id} className={`h-full w-full snap-start ${className}`}>
+    <section id={id} className={`h-full w-full snap-start overflow-hidden ${className} pt-[10vh]`}>
       {children}
     </section>
   );
+
+  // const ProjectCard = () => {
+  //   const [isExpanded, setIsExpanded] = useState(false);
+  //   const [isRotated, setIsRotated] = useState(false);
+
+  //   const toggleCard = () => {
+  //     setIsExpanded(!isExpanded);
+  //     setIsRotated(!isRotated);
+  //   };
+
+  //   return (
+  //     <div
+  //       className={`relative transition-all duration-500 transform-3d
+  //         ${isExpanded ? "h-100 w-100" : "h-60 w-60"} ${isRotated ? "rotate-y-180" : ""}`}
+  //     >
+  //       {/* Front Side */}
+  //       <div className="absolute inset-0 bg-amber-50 backface-hidden">
+  //         <button type="button" onClick={toggleCard}>
+  //           Click ME!
+  //         </button>
+  //       </div>
+  //       {/* Back Side */}
+  //       <div className="absolute inset-0 rotate-y-180 bg-amber-400 backface-hidden">
+  //         <button type="button" onClick={toggleCard}>
+  //           Click ME!
+  //         </button>
+  //       </div>
+  //     </div>
+  //   );
+  // };
 
   return (
     <>
@@ -120,16 +152,27 @@ function App() {
           </CustomSection>
 
           {/* Project Section */}
-          <CustomSection id={"project-section"}></CustomSection>
+          <CustomSection id={"project-section"}>
+            {/* <div
+              className="grid grid-cols-1 justify-items-center gap-4 sm:grid-cols-2 md:grid-cols-3
+                lg:grid-cols-3"
+            > */}
+            <div className="flex h-full w-full items-center justify-center">
+              <p className="text-6xl text-white">Coming Soon!</p>
+              {/* <ProjectCard /> */}
+              {/* <ProjectCard />
+              <ProjectCard />  */}
+            </div>
+          </CustomSection>
 
           {/* Contact Section */}
           <CustomSection
             id={"contact-section"}
-            className="flex snap-start flex-col items-center justify-center pb-[10%]"
+            className="flex snap-start flex-col items-center justify-center pb-[6vh]"
           >
             <div className="flex h-3/4 flex-col items-center justify-center">
               <div className="flex h-1/2 flex-col items-center justify-around">
-                <p className="text-4xl text-white">Looking for a Front-end Developer?</p>
+                <p className="text-5xl text-white">Looking for a Front-end Developer?</p>
                 <button
                   className="group relative w-1/2 cursor-pointer overflow-hidden rounded-md border
                     border-b-4 border-red-400 bg-red-950 px-4 py-2 font-medium text-red-400
@@ -149,7 +192,7 @@ function App() {
             </div>
 
             <div className="flex h-1/4 w-full flex-col items-start justify-between">
-              <div className="flex gap-5">
+              <div className="flex gap-5 px-2">
                 <FooterButton
                   path={"../public/Resume.pdf"}
                   img={
