@@ -1,4 +1,12 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-light: #eaefef;
+  --color-dark: #333446;
+  --color-primary: #7f8caa;
+  --color-secondary: #b8cfce;
+}
 
 html {
   font-size: 12px;
