@@ -22,7 +22,7 @@ const ContactSection = () => (
   <>
     <div className="flex h-3/4 flex-col items-center justify-center">
       <div className="flex h-1/2 flex-col items-center justify-around">
-        <p className="text-5xl">Looking for a Front-end Developer?</p>
+        <p className="text-4xl">Looking for a Front-end Developer?</p>
         <button
           className="group relative w-1/2 cursor-pointer overflow-hidden rounded-md border
             border-b-4 border-red-400 bg-red-950 px-4 py-2 font-medium text-red-400 duration-300

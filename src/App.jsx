@@ -3,9 +3,10 @@ import { useState } from "react";
 import AboutSection from "./components/sections/AboutSection";
 import ContactSection from "./components/sections/ContactSection";
 import HeroSection from "./components/sections/HeroSection";
+import useTheme from "./useTheme";
 
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const { isDarkMode, setIsDarkMode } = useTheme();
 
   const DownArrowComp = ({ className }) => {
     return (
@@ -68,8 +69,8 @@ function App() {
     >
       {isDarkMode ? (
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+          <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+          <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
           <g id="SVGRepo_iconCarrier">
             {" "}
             <path
@@ -80,8 +81,8 @@ function App() {
         </svg>
       ) : (
         <svg fill="#000000" viewBox="-5.5 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
-          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+          <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+          <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
           <g id="SVGRepo_iconCarrier">
             {" "}
             <title>light</title>{" "}
@@ -92,42 +93,75 @@ function App() {
     </button>
   );
 
-  // const ProjectCard = () => {
-  //   const [isExpanded, setIsExpanded] = useState(false);
-  //   const [isRotated, setIsRotated] = useState(false);
+  const ProjectCard = ({ name, year, description, techStack }) => {
+    // const [isExpanded, setIsExpanded] = useState(false);
+    const [isRotated, setIsRotated] = useState(false);
 
-  //   const toggleCard = () => {
-  //     setIsExpanded(!isExpanded);
-  //     setIsRotated(!isRotated);
-  //   };
+    const toggleCard = () => {
+      // setIsExpanded(!isExpanded);
+      setIsRotated(!isRotated);
+    };
 
-  //   return (
-  //     <div
-  //       className={`relative transition-all duration-500 transform-3d
-  //         ${isExpanded ? "h-100 w-100" : "h-60 w-60"} ${isRotated ? "rotate-y-180" : ""}`}
-  //     >
-  //       {/* Front Side */}
-  //       <div className="absolute inset-0 bg-amber-50 backface-hidden">
-  //         <button type="button" onClick={toggleCard}>
-  //           Click ME!
-  //         </button>
-  //       </div>
-  //       {/* Back Side */}
-  //       <div className="absolute inset-0 rotate-y-180 bg-amber-400 backface-hidden">
-  //         <button type="button" onClick={toggleCard}>
-  //           Click ME!
-  //         </button>
-  //       </div>
-  //     </div>
-  //   );
-  // };
+    const generateTechStack = (techStack) => {
+      return (
+        <div className="flex flex-wrap items-center gap-1">
+          {techStack.map((tech) => (
+            <span
+              key={tech}
+              className="bg-secondary dark:bg-dark rounded-2xl px-2 py-1 text-[10px]"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+      );
+    };
+
+    return (
+      <div
+        className={`relative h-full min-h-[150px] w-full min-w-[150px] transition-all duration-500
+          transform-3d ${isRotated ? "rotate-y-180" : ""} max-h-[400px] max-w-[400px]`}
+      >
+        {/* Front Side */}
+        <div
+          className="bg-primary shadow-primary dark:shadow-secondary dark:bg-primary absolute
+            inset-0 flex h-full w-full flex-col justify-between rounded-2xl p-8 transition-all
+            duration-300 ease-out backface-hidden hover:shadow-lg"
+          onClick={toggleCard}
+        >
+          <div className="flex h-4/5 w-full flex-col gap-2 pb-6">
+            <p className="text-base">{name}</p>
+            <p className="text-xs font-bold">{year}</p>
+            <p className="overflow-scroll text-xs">{description}</p>
+          </div>
+          <div>{generateTechStack(techStack)}</div>
+        </div>
+
+        {/* Back Side */}
+        <div
+          className="bg-primary absolute inset-0 h-full w-full rotate-y-180 rounded-2xl p-4
+            backface-hidden"
+        >
+          <button
+            type="button"
+            onClick={toggleCard}
+            className="bg-secondary dark:bg-dark rounded-2xl px-2 py-1 text-sm hover:brightness-75"
+          >
+            GO Back
+          </button>
+          <p className="flex h-4/5 w-full items-center justify-center text-4xl">Coming Soon!</p>
+        </div>
+      </div>
+    );
+  };
 
   return (
-    <div className={`${isDarkMode ? "dark" : ""} text-[#333446] dark:text-[#EAEFEF]`}>
+    <div className={"text-dark dark:text-light snap-y snap-mandatory overflow-y-scroll"}>
       {/* Fixed header for navigation */}
       <div
-        className="fixed top-0 left-0 z-50 flex h-[10vh] w-full items-center bg-[#EAEFEF]/50 px-[5%]
-          backdrop-blur-lg dark:bg-[#333446]/50"
+        className="from-light/50 dark:from-dark/50 fixed top-0 left-0 z-50 flex h-[10vh] w-full
+          min-w-[350px] items-center bg-gradient-to-br to-[#b6bebe]/50 px-[5%] backdrop-blur-lg
+          dark:to-[#181921]/50"
       >
         <div className="flex w-1/2 items-center justify-center text-xs">
           <HeaderMainButton>❚█══Derek NGAI══█❚</HeaderMainButton>
@@ -141,10 +175,7 @@ function App() {
       </div>
 
       {/* Main scroll container */}
-      <div
-        className="h-screen w-screen snap-y snap-mandatory overflow-y-scroll bg-gradient-to-br
-          from-[#EAEFEF] to-[#b6bebe] px-[10%] dark:from-[#333446] dark:to-[#181921]"
-      >
+      <div className="mx-auto h-screen w-screen max-w-4xl px-[10%]">
         <div className="h-full w-full">
           {/* Hero Section */}
           <CustomSection id={"hero-section"} className="flex flex-col items-center justify-center">
@@ -163,15 +194,35 @@ function App() {
 
           {/* Project Section */}
           <CustomSection id={"project-section"}>
-            {/* <div
-              className="grid grid-cols-1 justify-items-center gap-4 sm:grid-cols-2 md:grid-cols-3
-                lg:grid-cols-3"
-            > */}
-            <div className="flex h-full w-full items-center justify-center">
-              <p className="text-6xl">Coming Soon!</p>
-              {/* <ProjectCard /> */}
-              {/* <ProjectCard />
-              <ProjectCard />  */}
+            <div className="flex h-full w-full flex-col items-center justify-center gap-4 p-8">
+              <p className="text-4xl">Latest Works</p>
+              <div
+                className="grid h-full w-full grid-cols-1 items-center justify-items-center gap-4
+                  self-center md:grid-cols-2"
+              >
+                <ProjectCard
+                  name={"Simple Movie Website"}
+                  year={"2025"}
+                  description={
+                    "A dynamic movie search website that allows users to explore films using the TMDB API for real-time data retrieval. All user searches are logged in an Appwrite database, enabling the platform to showcase trending movies based on the most frequently searched titles."
+                  }
+                  techStack={["ReactJS", "Tailwincss", "Vite", "Appwrite"]}
+                />
+                <ProjectCard
+                  name={"Simple Movie App"}
+                  year={"2025"}
+                  description={
+                    'Similar to "Simple Movie Website", but in React Native and with an additional movie detail page. '
+                  }
+                  techStack={["React Native", "Typescript", "TailwindCSS", "EXPO", "Appwrite"]}
+                />
+                {/* <ProjectCard
+                  name={"Simple Movie App"}
+                  year={"2025"}
+                  description={"This is just a simple web app"}
+                  techStack={["Nothing", "ReactJS", "TailwindCSS", "Vite", "Appwrite"]}
+                /> */}
+              </div>
             </div>
           </CustomSection>
 
@@ -185,7 +236,8 @@ function App() {
         </div>
       </div>
 
-      <div className="fixed top-10/12 left-10/12">
+      {/* Button for Color Light/Dark Mode */}
+      <div className="fixed right-4 bottom-4">
         <ColorModeButton />
       </div>
     </div>
